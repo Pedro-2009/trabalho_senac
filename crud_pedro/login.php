@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 session_start();
 include 'config.php';
@@ -44,6 +44,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body class="bg-light">
 
+
+<div class="d-flex justify-content-start mb-3">
+   <a href="index.php"><button type="button" class="btn btn-secondary">Voltar</button></a> 
+</div>
+
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow-sm p-4" style="max-width: 350px; width: 100%; border-radius: 12px;">
         <h3 class="text-center mb-4">Login no Sistema</h3>
@@ -68,7 +73,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         <div class="text-center">
             <a href="register.php" class="text-primary text-decoration-none me-2" onmouseover="this.style.color='red'" onmouseout="this.style.color='#0d6efd'">Criar Conta</a>
-            |
             <a href="users/forgot_password.php" class="text-primary text-decoration-none ms-2" onmouseover="this.style.color='red'" onmouseout="this.style.color='#0d6efd'">Esqueci a Senha</a>
         </div>
     </div>

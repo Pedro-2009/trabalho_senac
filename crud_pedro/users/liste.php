@@ -2,13 +2,12 @@
 session_start();
 include '../config.php';
 
-// Verifica se o usuário é admin
+
 if(!isset($_SESSION['user_id']) || $_SESSION['access_level'] !== 'admin'){
     header("Location: ../login.php");
     exit;
 }
 
-// Alterar nível de acesso via POST
 if(isset($_POST['access_level'], $_POST['user_id'])){
     $user_id = intval($_POST['user_id']);
     $new_level = $_POST['access_level'];
@@ -20,7 +19,6 @@ if(isset($_POST['access_level'], $_POST['user_id'])){
     }
 }
 
-// Buscar usuários
 $sql = "SELECT * FROM users ORDER BY id DESC";
 $result = $conexao->query($sql);
 ?>

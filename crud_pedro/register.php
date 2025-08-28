@@ -2,14 +2,13 @@
 session_start();
 include 'config.php';
 
-// Contar número de admins
+
 $result = $conexao->query("SELECT COUNT(*) AS total_admin FROM users WHERE access_level='admin'");
 $row = $result->fetch_assoc();
 $total_admin = $row['total_admin'] ?? 0;
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    // Coleta e valida os campos
     $name     = trim($_POST['name']);
     $username = trim($_POST['username']);
     $email    = trim($_POST['email']);
@@ -21,19 +20,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
     }
 
-    // Hash da senha
+
     $password = password_hash($password_raw, PASSWORD_DEFAULT);
 
-    // Determinar nível de acesso selecionado
+  
     if(isset($_POST['access_level'])){
         $selected_level = $_POST['access_level'];
 
-        // Permitir admin apenas se total de admins < 5 ou se quem estiver criando for admin
         if($selected_level === 'admin'){
             if($total_admin < 5 || (isset($_SESSION['access_level']) && $_SESSION['access_level'] === 'admin')){
                 $access_level = 'admin';
             } else {
-                $access_level = 'usuario'; // não permite exceder 5 admins
+                $access_level = 'usuario'; 
             }
         } elseif($selected_level === 'funcionario'){
             $access_level = 'funcionario';
@@ -41,11 +39,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $access_level = 'usuario';
         }
     } else {
-        // Padrão para usuários comuns
         $access_level = 'usuario';
     }
 
-    // Preparar INSERT
     $sql = "INSERT INTO users (name, username, email, password, access_level) 
             VALUES (?, ?, ?, ?, ?)";
     $stmt = $conexao->prepare($sql);
@@ -78,6 +74,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-light">
+    <div class="d-flex justify-content-start mb-3">
+   <a href="index.php"><button type="button" class="btn btn-secondary">Voltar</button></a> 
+</div>
 
 <div class="container vh-100 d-flex justify-content-center align-items-center">
     <div class="card shadow-sm p-4" style="width: 100%; max-width: 450px;">
