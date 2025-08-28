@@ -1,5 +1,7 @@
+
 <?php
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,7 +14,7 @@ session_start();
 </head>
 <body class="container mt-5">
 
-<h2>Bem-vindo ao Sistema</h2>
+<h2>Bem-vindo ao Login</h2>
 
 <?php if(isset($_SESSION['user_id'])): ?>
     <p>Olá, <b><?= $_SESSION['user_name'] ?></b>!</p>

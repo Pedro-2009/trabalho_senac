@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty($name) || empty($username) || empty($email) || empty($password_raw)){
         $_SESSION['msg'] = "Todos os campos são obrigatórios!";
-        header("Location: cadastro.php");
+        header("Location: register.php");
         exit;
     }
 
@@ -48,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(!$stmt){
         $_SESSION['msg'] = "Erro na preparação da query: " . $conexao->error;
-        header("Location: cadastro.php");
+        header("Location: register.php");
         exit;
     }
 
@@ -60,7 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
     } else {
         $_SESSION['msg'] = "Erro: " . $stmt->error;
-        header("Location: cadastro.php");
+        header("Location: register.php");
         exit;
     }
 }
