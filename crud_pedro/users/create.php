@@ -21,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if($stmt->execute()){
         $_SESSION['msg'] = "Usuário criado com sucesso!";
-        header("Location: list.php");
+        header("Location: liste.php");
         exit;
     } else {
         $_SESSION['msg'] = "Erro: ".$stmt->error;
@@ -84,8 +84,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="list.php" class="btn btn-secondary">Voltar</a>
-                            <button class="btn btn-success" type="submit">Criar</button>
+                            <a href="liste.php" class="btn btn-secondary">Voltar</a>
+                           <a href="liste.php"> <button class="btn btn-success" type="submit">Criar</button></a>
                         </div>
                     </form>
                 </div>
