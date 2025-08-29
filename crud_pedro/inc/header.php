@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark px-3">
+<nav class="navbar navbar-dark bg-success px-3">
     <a class="navbar-brand" href="liste.php">Entrada de usuarios</a>
     <div class="d-flex align-items-center">
         <span class="navbar-text text-light me-3">
