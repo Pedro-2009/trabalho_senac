@@ -1,17 +1,15 @@
-/* Fundo da página */
+
 body {
     background-color: #2c2c2c;
     color: #f0f0f0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Card/formulário */
 .card {
     background-color: #3a3a3a;
     border-radius: 12px;
 }
 
-/* Labels e inputs */
 label {
     color: #f0f0f0;
 }
@@ -25,7 +23,6 @@ label {
     box-shadow: none;
 }
 
-/* Select */
 .form-select {
     background-color: #444;
     color: #fff;
@@ -36,7 +33,6 @@ label {
     box-shadow: none;
 }
 
-/* Botões */
 .btn-success {
     background-color: #458a25;
     color: #fff;
@@ -55,7 +51,6 @@ label {
     background-color: #333;
 }
 
-/* Alertas */
 .alert-info {
     background-color: #555;
     color: #fff;
