@@ -71,10 +71,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Cadastro de Usuário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style4.css">
 </head>
-<body class="bg-light">
-    <div class="d-flex justify-content-start mb-3">
+<body>
+    <div class="d-flex justify-content-start mb-3 p-3">
    <a href="index.php"><button type="button" class="btn btn-secondary">Voltar</button></a> 
 </div>
 
@@ -118,9 +118,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <?php endif; ?>
                 </select>
             </div>
+            <br>
             <?php endif; ?>
 
-            <button type="submit" class="btn btn-primary w-100 mb-2">Cadastrar</button>
+            <button type="submit" class="btn btn-success w-100 mb-2">Cadastrar</button>
             <a href="login.php" class="btn btn-secondary w-100">Voltar para Login</a>
         </form>
     </div>

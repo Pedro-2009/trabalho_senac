@@ -24,7 +24,7 @@ if (isset($_POST['access_level'], $_POST['user_id'])) {
     // Não pode alterar o próprio nível
     if ($user_id != $logged_id) {
 
-        // Busca nível do usuário que vai ser alterado
+        // Busca nível do usuário alvo
         $stmt = $conexao->prepare("SELECT access_level FROM users WHERE id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
@@ -35,9 +35,12 @@ if (isset($_POST['access_level'], $_POST['user_id'])) {
         $can_update = false;
 
         if ($logged_level === 'admin') {
-            $can_update = true; // admin pode alterar qualquer nível
+            // Admin só pode mudar se o alvo não for admin
+            if ($target_level !== 'admin') {
+                $can_update = true;
+            }
         } elseif ($logged_level === 'funcionario') {
-            // funcionario não pode alterar admins
+            // Funcionário só pode mudar se o alvo não for admin
             if ($target_level !== 'admin') {
                 $can_update = true;
             }
@@ -63,22 +66,19 @@ $result = $conexao->query($sql);
     <meta charset="UTF-8" />
     <title>Lista de Usuários</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body class="bg-light">
-
+  <link rel="stylesheet" href="../css/style.css">
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Lista de Usuários</h3>
 
         <?php if ($logged_level === 'admin'): ?>
-            <a href="create.php" class="btn btn-primary">+ Criar Novo Usuário</a>
+            <a href="create.php" class="btn btn-warning">+ Criar Novo Usuário</a>
         <?php endif; ?>
     </div>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">
-            <thead class="table-primary">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
@@ -96,14 +96,12 @@ $result = $conexao->query($sql);
                         <td><?= htmlspecialchars($row['username']) ?></td>
                         <td><?= htmlspecialchars($row['email']) ?></td>
                         <td>
-                            <?php if ($row['id'] != $logged_id): ?>
+                            <?php if ($row['id'] != $logged_id && $row['access_level'] !== 'admin'): ?>
                                 <form method="POST" class="d-inline">
                                     <input type="hidden" name="user_id" value="<?= $row['id'] ?>" />
-                                    <select name="access_level" class="form-select form-select-sm" onchange="this.form.submit()"
-                                        <?= ($logged_level === 'funcionario' && $row['access_level'] === 'admin') ? 'disabled' : '' ?>>
+                                    <select name="access_level" class="form-select form-select-sm" onchange="this.form.submit()">
                                         <option value="usuario" <?= $row['access_level'] === 'usuario' ? 'selected' : '' ?>>Usuário</option>
                                         <option value="funcionario" <?= $row['access_level'] === 'funcionario' ? 'selected' : '' ?>>Funcionário</option>
-                                        <option value="admin" <?= $row['access_level'] === 'admin' ? 'selected' : '' ?>>Admin</option>
                                     </select>
                                 </form>
                             <?php else: ?>
@@ -113,19 +111,20 @@ $result = $conexao->query($sql);
                         <td>
                             <!-- Botão editar -->
                             <?php if (
-                                $logged_level === 'admin' ||
-                                ($logged_level === 'funcionario' && $row['access_level'] !== 'admin' && $row['id'] != $logged_id)
+                                $logged_level === 'admin' && $row['access_level'] !== 'admin'
+                                || ($logged_level === 'funcionario' && $row['access_level'] !== 'admin')
+                                || $row['id'] == $logged_id
                             ): ?>
                                 <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning mb-1">Editar</a>
                             <?php else: ?>
-                                <button class="btn btn-sm btn-warning mb-1" disabled>Editar</button>
+                                <button class="btn btn-sm btn-secundary mb-1" disabled>Editar</button>
                             <?php endif; ?>
 
                             <!-- Botão excluir -->
                             <?php if (
                                 $row['id'] != $logged_id &&
                                 (
-                                    $logged_level === 'admin' ||
+                                    ($logged_level === 'admin' && $row['access_level'] !== 'admin') ||
                                     ($logged_level === 'funcionario' && $row['access_level'] !== 'admin')
                                 )
                             ): ?>

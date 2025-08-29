@@ -1,10 +1,6 @@
-
-
 <?php
 session_start();
 include 'config.php';
-
-
 
 if(isset($_SESSION['user_id'])){
     header("Location: index.php");
@@ -43,17 +39,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="css/style3.css">
 </head>
-<body class="bg-light">
+<body>
 
-
-<div class="d-flex justify-content-start mb-3">
+<div class="d-flex justify-content-start mb-3 p-3">
    <a href="index.php"><button type="button" class="btn btn-secondary">Voltar</button></a> 
 </div>
 
 <div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-sm p-4" style="max-width: 350px; width: 100%; border-radius: 12px;">
+    <div class="card shadow-sm p-4" style="max-width: 350px; width: 100%;">
         <h3 class="text-center mb-4">Login no Sistema</h3>
 
         <?php if(isset($error)){ ?>
@@ -63,20 +58,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form method="POST">
             <div class="mb-3">
                 <label class="form-label">Username ou Email</label>
-                <input type="text" name="login" class="form-control rounded"  required>
+                <input type="text" name="login" class="form-control rounded" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Senha</label>
-                <input type="password" name="password" class="form-control rounded"  required>
+                <input type="password" name="password" class="form-control rounded" required>
             </div>
+            <br>
 
-            <button type="submit" class="btn btn-primary w-100 mb-3 rounded">Entrar</button>
+            <button type="submit" class="btn btn-success w-100 mb-3 rounded">Entrar</button>
         </form>
 
         <div class="text-center">
-            <a href="register.php" class="text-primary text-decoration-none me-2" onmouseover="this.style.color='red'" onmouseout="this.style.color='#0d6efd'">Criar Conta</a>
-            <a href="users/forgot_password.php" class="text-primary text-decoration-none ms-2" onmouseover="this.style.color='red'" onmouseout="this.style.color='#0d6efd'">Esqueci a Senha</a>
+            <a href="register.php" class="text-primary text-decoration-none me-2">Criar Conta</a>
+            <a href="users/forgot_password.php" class="text-primary text-decoration-none ms-2">Esqueci a Senha</a>
         </div>
     </div>
 </div>

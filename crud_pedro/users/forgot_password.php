@@ -19,17 +19,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Esqueci a senha</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../css/style5.css">
 </head>
-<body class="bg-light d-flex align-items-center justify-content-center vh-100">
 
+<body class="bg-dark d-flex align-items-center justify-content-center vh-100">
+    
 <div class="card shadow p-4" style="width: 25rem;">
     <h3 class="text-center mb-3">Redefinir Senha</h3>
     <form method="POST">
@@ -41,8 +41,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <label>Nova Senha</label>
             <input type="password" name="new_password" class="form-control" required>
         </div>
+        <br>
         <button class="btn btn-warning w-100" type="submit">Atualizar Senha</button>
+        <br><br>
     </form>
+    <a href="../login.php"><button class="btn btn-success w-100" >Voltar</button></a>
 </div>
 
 </body>

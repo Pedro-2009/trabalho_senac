@@ -24,10 +24,10 @@ $user = $stmt->get_result()->fetch_assoc();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="container mt-5">
+<body class="bg-dark container mt-5">
 
-<h3>Meu Perfil</h3>
-<table class="table table-bordered">
+<h3 class="bg-light">Meu Perfil</h3>
+<table class=" btn-secondary table table-bordered">
     <tr><th>Nome</th><td><?= $user['name'] ?></td></tr>
     <tr><th>Usuário</th><td><?= $user['username'] ?></td></tr>
     <tr><th>Email</th><td><?= $user['email'] ?></td></tr>

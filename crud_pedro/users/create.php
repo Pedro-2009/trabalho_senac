@@ -35,8 +35,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Usuário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style6.css">
 </head>
-<body class="bg-light">
+<body class="bg-dark">
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -49,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <?php endif; ?>
 
             <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white text-center">
+                <div class="card-header bg-secunday text-white text-center">
                     <h4>Criar Novo Usuário</h4>
                 </div>
                 <div class="card-body">
