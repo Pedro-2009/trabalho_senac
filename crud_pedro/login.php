@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         <div class="text-center">
             <a href="register.php" class="text-primary text-decoration-none me-2">Criar Conta</a>
-            <a href="users/forgot_password.php" class="text-primary text-decoration-none ms-2">Esqueci a Senha</a>
+            <a href="add/forgot_password.php" class="text-primary text-decoration-none ms-2">Esqueci a Senha</a>
         </div>
     </div>
 </div>

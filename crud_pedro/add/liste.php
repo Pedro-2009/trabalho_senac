@@ -2,7 +2,6 @@
 session_start();
 include '../config.php';
 
-// Verifica se está logado
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit;
@@ -11,20 +10,16 @@ if (!isset($_SESSION['user_id'])) {
 $logged_id = $_SESSION['user_id'];
 $logged_level = $_SESSION['access_level'] ?? '';
 
-// Permite só admin e funcionario acessarem
 if (!in_array($logged_level, ['admin', 'funcionario'])) {
     die("Acesso negado: você não tem permissão para acessar esta página.");
 }
 
-// Se recebeu POST para alterar nível de usuário
 if (isset($_POST['access_level'], $_POST['user_id'])) {
     $user_id = intval($_POST['user_id']);
     $new_level = $_POST['access_level'];
 
-    // Não pode alterar o próprio nível
     if ($user_id != $logged_id) {
 
-        // Busca nível do usuário alvo
         $stmt = $conexao->prepare("SELECT access_level FROM users WHERE id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
@@ -35,12 +30,12 @@ if (isset($_POST['access_level'], $_POST['user_id'])) {
         $can_update = false;
 
         if ($logged_level === 'admin') {
-            // Admin só pode mudar se o alvo não for admin
+           
             if ($target_level !== 'admin') {
                 $can_update = true;
             }
         } elseif ($logged_level === 'funcionario') {
-            // Funcionário só pode mudar se o alvo não for admin
+          
             if ($target_level !== 'admin') {
                 $can_update = true;
             }
@@ -55,7 +50,6 @@ if (isset($_POST['access_level'], $_POST['user_id'])) {
     }
 }
 
-// Busca lista de usuários
 $sql = "SELECT * FROM users ORDER BY id DESC";
 $result = $conexao->query($sql);
 ?>
@@ -67,17 +61,21 @@ $result = $conexao->query($sql);
     <title>Lista de Usuários</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css">
-<div class="container mt-5">
+ <body class="bg-dark">
+     <?php include '../inc/header.php'; ?>
+
+<div class=" container mt-5">
+    <a href="../index.php" class="btn btn-secondary mt-3">Voltar</a><br><br>
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Lista de Usuários</h3>
+        <h3 class="text-light">Lista de Usuários</h3>
 
         <?php if ($logged_level === 'admin'): ?>
-            <a href="create.php" class="btn btn-warning">+ Criar Novo Usuário</a>
+            <a href="create.php" class="btn btn-success">+ Criar Novo Usuário</a>
         <?php endif; ?>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
+    <div class="table-responsive overflow-hidden rounded">
+        <table class="table table-bordered table-hover align-middle rounded-table bg-light">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -109,7 +107,6 @@ $result = $conexao->query($sql);
                             <?php endif; ?>
                         </td>
                         <td>
-                            <!-- Botão editar -->
                             <?php if (
                                 $logged_level === 'admin' && $row['access_level'] !== 'admin'
                                 || ($logged_level === 'funcionario' && $row['access_level'] !== 'admin')
@@ -120,7 +117,6 @@ $result = $conexao->query($sql);
                                 <button class="btn btn-sm btn-secundary mb-1" disabled>Editar</button>
                             <?php endif; ?>
 
-                            <!-- Botão excluir -->
                             <?php if (
                                 $row['id'] != $logged_id &&
                                 (
@@ -128,7 +124,7 @@ $result = $conexao->query($sql);
                                     ($logged_level === 'funcionario' && $row['access_level'] !== 'admin')
                                 )
                             ): ?>
-                                <form method="POST" action="delete.php" class="d-inline" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
+                                <form method="POST" action="../users/delete.php" class="d-inline" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
                                     <input type="hidden" name="delete_id" value="<?= $row['id'] ?>" />
                                     <button type="submit" class="btn btn-sm btn-danger mb-1">Excluir</button>
                                 </form>
@@ -141,8 +137,6 @@ $result = $conexao->query($sql);
             </tbody>
         </table>
     </div>
-
-    <a href="../index.php" class="btn btn-secondary mt-3">Voltar</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

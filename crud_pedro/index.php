@@ -10,23 +10,24 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style2.css">
 </head>
-<body>
+<body class="bg-dark">
 
+<?php if (isset($_SESSION['user_id'])): ?>
+    <?php include 'inc/header.php'; ?>
+<?php endif; ?>
 <div class="container mt-5 text-center">
 
-    <h2>Bem-vindo ao Sistema</h2>
+    <h2 class="text-light">Bem-vindo ao Sistema</h2>
 
     <?php if(isset($_SESSION['user_id'])): ?>
         <p>Olá, <b><?= htmlspecialchars($_SESSION['user_name'] ?? $_SESSION['username'] ?? '') ?></b>!</p>
 
         <div class="d-flex justify-content-center flex-wrap gap-2 mb-3">
-            <a href="users/profile.php" class="btn btn-success">Meu Perfil</a>
+            <a href="add/profile.php" class="btn btn-success">Meu Perfil</a>
 
             <?php if(in_array($_SESSION['access_level'], ['admin', 'funcionario'])): ?>
-                <a href="users/liste.php" class="btn btn-warning">Gerenciar Usuários</a>
+                <a href="add/liste.php" class="btn btn-warning">Gerenciar Usuários</a>
             <?php endif; ?>
-
-            <a href="logout.php" class="btn btn-danger">Sair</a>
         </div>
 
     <?php else: ?>

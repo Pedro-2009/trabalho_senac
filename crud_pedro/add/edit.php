@@ -75,7 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: liste.php");
+    if ($logged_level === 'admin' || $logged_level === 'funcionario') {
+        header("Location: liste.php");
+    } else {
+        header("Location: ../index.php");
+    }
     exit;
 }
 ?>
@@ -88,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../css/style_edit.css">
 </head>
 <body class="bg-dark">
+    <?php include '../inc/header.php'; ?>
 <div class="container mt-5">
     <h3 class="mb-3">Editar Usuário</h3>
 
@@ -110,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
-<?php include '../footer.php'; ?> 
+<?php include '../inc/footer.php'; ?> 
 
 </body>
 </html>

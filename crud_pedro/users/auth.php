@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../config.php';
 
 $login = $_POST['login'];
 $password = $_POST['password'];
@@ -17,7 +17,7 @@ if($result->num_rows > 0){
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['access_level'] = $user['access_level'];
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit;
     } else {
         $_SESSION['msg'] = "Senha incorreta.";
@@ -26,4 +26,4 @@ if($result->num_rows > 0){
     $_SESSION['msg'] = "Usuário não encontrado.";
 }
 
-header("Location: login.php");
+header("Location: ../login.php");
